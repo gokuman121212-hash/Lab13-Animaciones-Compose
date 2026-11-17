@@ -4,13 +4,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.tecsup.lab13.screens.Ejercicio1Screen
 import com.tecsup.lab13.ui.theme.Lab13_AnimacionesTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +21,55 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Lab13_AnimacionesTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                Lab13App()
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+fun Lab13App() {
+    var pantallaActual by remember { mutableIntStateOf(1) }
+    val opciones = listOf("Ej 1", "Ej 2", "Ej 3", "Ej 4", "Juego", "Codelab")
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Lab13_AnimacionesTheme {
-        Greeting("Android")
+    Scaffold(
+        topBar = {
+            Column {
+                CenterAlignedTopAppBar(
+                    title = { Text("Lab 13: Animaciones", fontWeight = FontWeight.Bold) },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(horizontal = 8.dp, vertical = 4.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    opciones.forEachIndexed { index, titulo ->
+                        val num = index + 1
+                        FilterChip(
+                            selected = pantallaActual == num,
+                            onClick = { pantallaActual = num },
+                            label = { Text(titulo) }
+                        )
+                    }
+                }
+            }
+        }
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
+            when (pantallaActual) {
+                1 -> Ejercicio1Screen()
+                else -> {
+                    Box(modifier = Modifier.fillMaxSize().padding(24.dp)) {
+                        Text("Pendiente de implementar en el siguiente paso...")
+                    }
+                }
+            }
+        }
     }
 }
