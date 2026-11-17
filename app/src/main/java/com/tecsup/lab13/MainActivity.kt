@@ -12,7 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.tecsup.lab13.screens.Ejercicio1Screen
+import com.tecsup.lab13.screens.*
 import com.tecsup.lab13.ui.theme.Lab13_AnimacionesTheme
 
 class MainActivity : ComponentActivity() {
@@ -64,9 +64,12 @@ fun Lab13App() {
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             when (pantallaActual) {
                 1 -> Ejercicio1Screen()
+                2 -> Ejercicio2Screen()
+                3 -> Ejercicio3Screen()
+                4 -> Ejercicio4Screen()
                 else -> {
                     Box(modifier = Modifier.fillMaxSize().padding(24.dp)) {
-                        Text("Pendiente de implementar en el siguiente paso...")
+                        Text("Falta implementar Juego Final y Codelab...")
                     }
                 }
             }
