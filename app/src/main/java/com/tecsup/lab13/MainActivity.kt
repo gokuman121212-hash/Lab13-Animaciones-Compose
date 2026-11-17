@@ -67,11 +67,8 @@ fun Lab13App() {
                 2 -> Ejercicio2Screen()
                 3 -> Ejercicio3Screen()
                 4 -> Ejercicio4Screen()
-                else -> {
-                    Box(modifier = Modifier.fillMaxSize().padding(24.dp)) {
-                        Text("Falta implementar Juego Final y Codelab...")
-                    }
-                }
+                5 -> JuegoFinalScreen()
+                6 -> CodelabAnimacionesScreen()
             }
         }
     }
