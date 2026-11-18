@@ -11,9 +11,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Work
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,14 +27,12 @@ fun CodelabAnimacionesScreen() {
     var tabSeleccionada by remember { mutableStateOf(TabPage.Home) }
     var tarjetaExpandida by remember { mutableStateOf(false) }
 
-    // 1. Color de fondo animado según la pestaña (Codelab Step 1)
     val backgroundColor by animateColorAsState(
         targetValue = if (tabSeleccionada == TabPage.Home) Color(0xFFFFF8E1) else Color(0xFFE0F7FA),
         animationSpec = tween(500),
         label = "codelabBgColor"
     )
 
-    // 2. Transición coordinada con updateTransition (Codelab Step 4)
     val transition = updateTransition(targetState = tabSeleccionada, label = "tabTransition")
     val indicatorColor by transition.animateColor(label = "indicatorColor") { page ->
         if (page == TabPage.Home) Color(0xFFFF8F00) else Color(0xFF00838F)
@@ -76,7 +71,6 @@ fun CodelabAnimacionesScreen() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Selector de pestañas con indicador elástico (updateTransition)
         Box(
             modifier = Modifier
                 .width(320.dp)
@@ -99,9 +93,7 @@ fun CodelabAnimacionesScreen() {
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(Icons.Default.Home, contentDescription = null, tint = Color(0xFFFF8F00))
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text("Home", fontWeight = FontWeight.Bold)
+                    Text("🏠 Home", fontWeight = FontWeight.Bold, color = Color(0xFFFF8F00))
                 }
                 Row(
                     modifier = Modifier
@@ -111,16 +103,13 @@ fun CodelabAnimacionesScreen() {
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(Icons.Default.Work, contentDescription = null, tint = Color(0xFF00838F))
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text("Work", fontWeight = FontWeight.Bold)
+                    Text("💼 Work", fontWeight = FontWeight.Bold, color = Color(0xFF00838F))
                 }
             }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Tarjeta con animateContentSize (Codelab Step 3)
         Surface(
             modifier = Modifier
                 .fillMaxWidth()

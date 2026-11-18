@@ -55,7 +55,7 @@ fun Ejercicio1Screen() {
             modifier = Modifier.height(180.dp),
             contentAlignment = Alignment.Center
         ) {
-            AnimatedVisibility(
+            androidx.compose.animation.AnimatedVisibility(
                 visible = visible,
                 enter = fadeIn(animationSpec = tween(durationMillis = 700)),
                 exit = fadeOut(animationSpec = tween(durationMillis = 700))
